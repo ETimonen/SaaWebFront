@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 function App() {
   return (
@@ -21,5 +22,13 @@ function App() {
     </div>
   );
 }
+
+axios.get(`http://saa-api.onrender.com/saaapi/ennusteet`)
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
 export default App;
