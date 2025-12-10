@@ -41,18 +41,53 @@
   text-align: center;
 }
 
+/* Yleinen taulukon muotoilu */
 table {
-  width: 80%;
-  margin: 20px auto;
+  width: 100%;
   border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
 
 th, td {
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 8px;
   text-align: center;
+  border: 1px solid #ddd;
 }
 
 th {
-  background-color: #f4f4f4;
+  background-color: #f2f2f2;
 }
+
+/* Sticky otsikot */
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9;
+  z-index: 1;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* 3pv ennusteet: vaaleansininen */
+th.group3, td.group3 {
+  background-color: #e0f7fa;
+}
+
+/* 10pv ennusteet: vaaleanoranssi */
+th.group10, td.group10 {
+  background-color: #ffe0b2;
+}
+
+/* Yläotsikoiden korostus */
+th[colspan].group3 {
+  background-color: #a3d8ff;
+  font-weight: bold;
+}
+
+th[colspan].group10 {
+  background-color: #ffb74d;
+  font-weight: bold;
+}
+
