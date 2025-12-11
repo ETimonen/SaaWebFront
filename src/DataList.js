@@ -107,13 +107,13 @@ function DataList() {
             <tbody>
               {sortedData.map((item, index) => {
                 // 3 päivän ennusteet
-                const tempDiff3 = getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) - item.lampotila_nyt : '-';
-                const rainDiff3 = getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) - item.sade_nyt : '-';
-                const cloudDiff3 = (item.pilvisyys_3pv !== null && item.pilvisyys_nyt !== null) ? (parseFloat(item.pilvisyys_3pv) - parseFloat(item.pilvisyys_nyt)) : '-';
+                const tempDiff3 = getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) - item.lampotila_3pv : '-';
+                const rainDiff3 = getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) - item.sade_3pv : '-';
+                const cloudDiff3 = getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) - item.pilvisyys_3pv : '-';;
                 // 10 päivän ennusteet
-                const tempDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) - item.lampotila_nyt : '-';
-                const rainDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) - item.sade_nyt : '-';
-                const cloudDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) !== '-' ? (parseFloat(getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10)) - parseFloat(item.pilvisyys_nyt)) : '-';
+                const tempDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) - item.lampotila_10pv : '-';
+                const rainDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) - item.sade_10pv : '-';
+                const cloudDiff10 = getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) - item.pilvisyys_10pv : '-';
 
                 return (
                   <tr key={index}>
