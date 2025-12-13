@@ -17,8 +17,7 @@ const getValueFromFutureDate = (currentDate, data, dataType, daysToAdd) => {
       case 'temp':  // Lämpötila
         return futureData.lampotila_nyt !== null ? futureData.lampotila_nyt : '-';
       case 'cloud':  // Pilvisyys
-        const parsedCloud = parseFloat(futureData.pilvisyys_nyt)
-        return parsedCloud.toFixed(1) !== null ? parseFloat(futureData.pilvisyys_nyt).toFixed(1) : '-';
+        return futureData.pilvisyys_nyt !== null ? futureData.pilvisyys_nyt : '-';
       case 'rain':  // Sademäärä
         return futureData.sade_nyt !== null ? futureData.sade_nyt : '-';
       default:
@@ -120,33 +119,33 @@ function DataList() {
                     <td>{new Date(item.pvm).toLocaleDateString()}</td>
 
                     {/* Lämpötila 3pv */}
-                    <td className="group3">{item.lampotila_3pv !== null ? item.lampotila_3pv + "°C" : '-'}</td>
-                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) + "°C" : '-'}</td>
+                    <td className="group3">{item.lampotila_3pv !== null ? item.lampotila_3pv : '-'}</td>
+                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 3) : '-'}</td>
                     <td className="group3">{tempDiff3 !== '-' ? tempDiff3.toFixed(2) : '-'}</td>
 
                     {/* Sademäärä 3pv */}
-                    <td className="group3">{item.sade_3pv !== null ? item.sade_3pv + " mm" : '-'}</td>
-                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) + " mm" : '-'}</td>
+                    <td className="group3">{item.sade_3pv !== null ? item.sade_3pv : '-'}</td>
+                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 3) : '-'}</td>
                     <td className="group3">{rainDiff3 !== '-' ? rainDiff3.toFixed(2) : '-'}</td>
 
                     {/* Pilvisyys 3pv */}
-                    <td className="group3">{item.pilvisyys_3pv !== null ? item.pilvisyys_3pv + " %" : '-'}</td>
-                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) + " %" : '-'}</td>
+                    <td className="group3">{item.pilvisyys_3pv !== null ? item.pilvisyys_3pv : '-'}</td>
+                    <td className="group3">{getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 3) : '-'}</td>
                     <td className="group3">{cloudDiff3 !== '-' ? cloudDiff3.toFixed(1) : '-'}</td>
 
                     {/* Lämpötila 10pv */}
-                    <td className="group10">{item.lampotila_10pv !== null ? item.lampotila_10pv + "°C" : '-'}</td>
-                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) + "°C" : '-'}</td>
+                    <td className="group10">{item.lampotila_10pv !== null ? item.lampotila_10pv : '-'}</td>
+                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'temp', 10) : '-'}</td>
                     <td className="group10">{tempDiff10 !== '-' ? tempDiff10.toFixed(2) : '-'}</td>
 
                     {/* Sademäärä 10pv */}
-                    <td className="group10">{item.sade_10pv !== null ? item.sade_10pv + " mm" : '-'}</td>
-                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) + " mm" : '-'}</td>
+                    <td className="group10">{item.sade_10pv !== null ? item.sade_10pv : '-'}</td>
+                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'rain', 10) : '-'}</td>
                     <td className="group10">{rainDiff10 !== '-' ? rainDiff10.toFixed(2) : '-'}</td>
 
                     {/* Pilvisyys 10pv */}
-                    <td className="group10">{item.pilvisyys_10pv !== null ? item.pilvisyys_10pv + " %" : '-'}</td>
-                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) + " %" : '-'}</td>
+                    <td className="group10">{item.pilvisyys_10pv !== null ? item.pilvisyys_10pv : '-'}</td>
+                    <td className="group10">{getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) !== '-' ? getValueFromFutureDate(item.pvm, sortedData, 'cloud', 10) : '-'}</td>
                     <td className="group10">{cloudDiff10 !== '-' ? cloudDiff10.toFixed(2) : '-'}</td>
                   </tr>
                 );

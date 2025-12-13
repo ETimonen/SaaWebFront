@@ -67,17 +67,17 @@ thead th {
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #ececec;
 }
 
 /* 3pv ennusteet: vaaleansininen */
 th.group3, td.group3 {
-  background-color: #e0f7fa;
+  background-color: #e0f7fa7a;
 }
 
 /* 10pv ennusteet: vaaleanoranssi */
 th.group10, td.group10 {
-  background-color: #ffe0b2;
+  background-color: #ffe0b27c;
 }
 
 /* Yläotsikoiden korostus */
