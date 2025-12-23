@@ -53,7 +53,7 @@ function DataList() {
   return (
     <div className="data-list-container">
       {loading ? (
-        <p>Ladataan...</p>
+        <p className="lataus-text">Ladataan...</p>
       ) : (
         <div>
           <h2>Sään ennusteet ja toteutuneet arvot</h2>

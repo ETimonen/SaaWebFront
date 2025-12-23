@@ -13,6 +13,7 @@ function App() {
   );
 }
 
+
 axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
   .then(response => {
     console.log(response.data);
