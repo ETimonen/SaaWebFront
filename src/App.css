@@ -125,12 +125,46 @@ padding: 0 2rem;
 
 .forecast-tables table {
   flex: 1;
-  min-width: 300px;
+  min-width: 200px;
 }
 
+/* Alle 1200px leveys */
 @media (max-width: 1200px) {
   .forecast-tables {
     flex-direction: column;
+    gap: 0rem;
+    justify-content: left;
+    margin: 2px;
+    padding: 0 0rem;
+  }
+  .forecast-tables td {
+    font-size: smaller;
+  }
+  .forecast-tables th {
+    font-size: medium;
+  }
+  .DataList h2 {
+    font-size: medium;
+  }
+}
+
+/* Alle 600px leveys */
+@media (max-width: 600px) {
+  .forecast-tables {
+    flex-direction: column;
+    gap: 0rem;
+    justify-content: left;
+    margin: 2px;
+    padding: 0 0rem;
+  }
+  .forecast-tables td {
+    font-size: x-small;
+  }
+  .forecast-tables th {
+    font-size: smaller;
+  }
+  .DataList h2 {
+    font-size: medium;
   }
 }
 

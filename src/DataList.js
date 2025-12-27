@@ -4,7 +4,7 @@ import axios from 'axios';
 // Funktio, joka hakee ennusteen arvon menneeltä päivämäärältä
 const getValueFromPastDate = (currentDate, data, dataType, daysToReduce) => {
   const targetDate = new Date(currentDate);
-  targetDate.setDate(targetDate.getDate() - daysToReduce); // Poistetaan päivämäärästä daysToReduce (esim. 3 tai 10 päivää)
+  targetDate.setDate(targetDate.getDate() - daysToReduce); // Poistetaan päivämäärästä daysToReduce (3 tai 10 päivää)
 
   // Etsi data-objektista päivämäärä, joka vastaa targetDate
   const pastData = data.find(item => {
@@ -31,10 +31,40 @@ const getValueFromPastDate = (currentDate, data, dataType, daysToReduce) => {
   return '-';
 };
 
-
 function DataList() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Päivitä windowWidth, kun ikkunan koko muuttuu
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Taulukon otsikkojen vaihto ruudun koon mukaan
+  const getHeaderText = (text) => {
+    if (windowWidth < 800) {
+      switch (text) {
+        case 'Päivämäärä': return 'Pvm'
+        case 'Ennuste': return 'Enn'
+        case 'Toteutunut': return 'Tot'
+        default: return text;
+      }
+    } else {
+      switch (text) {
+        case 'Pvm': return 'Päivämäärä'
+        case 'Enn': return 'Ennuste'
+        case 'Tot': return 'Toteutunut'
+        default: return text;
+      }
+    }
+  };
+
+  const Pvm = getHeaderText('Päivämäärä')
+  const Enn = getHeaderText('Ennuste')
+  const Tot = getHeaderText('Toteutunut')
 
   useEffect(() => {
     // Hae data API:sta
@@ -67,7 +97,7 @@ function DataList() {
             <table>
               <thead>
                 <tr>
-                  <th rowSpan="3">Päivämäärä</th>
+                  <th rowSpan="3">{Pvm}</th>
                   <th colSpan="9" className="group3">3 päivän ennusteet</th>
                 </tr>
                 <tr>
@@ -76,14 +106,14 @@ function DataList() {
                   <th colSpan="3" className="group3">Pilvisyys (%)</th>
                 </tr>
                 <tr>
-                  <th className="group3">Ennuste</th>
-                  <th className="group3">Toteutunut</th>
+                  <th className="group3">{Enn}</th>
+                  <th className="group3">{Tot}</th>
                   <th className="group3">Ero</th>
-                  <th className="group3">Ennuste</th>
-                  <th className="group3">Toteutunut</th>
+                  <th className="group3">{Enn}</th>
+                  <th className="group3">{Tot}</th>
                   <th className="group3">Ero</th>
-                  <th className="group3">Ennuste</th>
-                  <th className="group3">Toteutunut</th>
+                  <th className="group3">{Enn}</th>
+                  <th className="group3">{Tot}</th>
                   <th className="group3">Ero</th>
                 </tr>
               </thead>
@@ -121,7 +151,7 @@ function DataList() {
             <table>
               <thead>
                 <tr>
-                  <th rowSpan="3">Päivämäärä</th>
+                  <th rowSpan="3">{Pvm}</th>
                   <th colSpan="9" className="group10">10 päivän ennusteet</th>
                 </tr>
                 <tr>
@@ -130,14 +160,14 @@ function DataList() {
                   <th colSpan="3" className="group10">Pilvisyys (%)</th>
                 </tr>
                 <tr>
-                  <th className="group10">Ennuste</th>
-                  <th className="group10">Toteutunut</th>
+                  <th className="group10">{Enn}</th>
+                  <th className="group10">{Tot}</th>
                   <th className="group10">Ero</th>
-                  <th className="group10">Ennuste</th>
-                  <th className="group10">Toteutunut</th>
+                  <th className="group10">{Enn}</th>
+                  <th className="group10">{Tot}</th>
                   <th className="group10">Ero</th>
-                  <th className="group10">Ennuste</th>
-                  <th className="group10">Toteutunut</th>
+                  <th className="group10">{Enn}</th>
+                  <th className="group10">{Tot}</th>
                   <th className="group10">Ero</th>
                 </tr>
               </thead>
