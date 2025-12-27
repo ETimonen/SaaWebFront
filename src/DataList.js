@@ -1,47 +1,47 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useMemo } from 'react'
+import axios from 'axios'
 
 // Funktio, joka hakee ennusteen arvon menneeltä päivämäärältä
 const getValueFromPastDate = (currentDate, data, dataType, daysToReduce) => {
-  const targetDate = new Date(currentDate);
-  targetDate.setDate(targetDate.getDate() - daysToReduce); // Poistetaan päivämäärästä daysToReduce (3 tai 10 päivää)
+  const targetDate = new Date(currentDate)
+  targetDate.setDate(targetDate.getDate() - daysToReduce) // Poistetaan päivämäärästä daysToReduce (3 tai 10 päivää)
 
   // Etsi data-objektista päivämäärä, joka vastaa targetDate
   const pastData = data.find(item => {
-    const itemDate = new Date(item.pvm);
-    return itemDate.toLocaleDateString() === targetDate.toLocaleDateString();
-  });
+    const itemDate = new Date(item.pvm)
+    return itemDate.toLocaleDateString() === targetDate.toLocaleDateString()
+  })
 
   if (pastData) {
       switch (dataType) {
         case 'temp':  // Lämpötila
-          const tempdays = 'lampotila_' + daysToReduce + 'pv';
-          return pastData[tempdays] !== null ? pastData[tempdays] : '-';
+          const tempdays = 'lampotila_' + daysToReduce + 'pv'
+          return pastData[tempdays] !== null ? pastData[tempdays] : '-'
         case 'cloud':  // Pilvisyys
-          const clouddays = 'pilvisyys_' + daysToReduce + 'pv';
-          return pastData[clouddays] !== null ? pastData[clouddays] : '-';
+          const clouddays = 'pilvisyys_' + daysToReduce + 'pv'
+          return pastData[clouddays] !== null ? pastData[clouddays] : '-'
         case 'rain':  // Sademäärä
-          const raindays = 'sade_' + daysToReduce + 'pv';
-          return pastData[raindays] !== null ? pastData[raindays] : '-';
+          const raindays = 'sade_' + daysToReduce + 'pv'
+          return pastData[raindays] !== null ? pastData[raindays] : '-'
         default:
-          return '-';
+          return '-'
       }
   }
 
-  return '-';
-};
+  return '-'
+}
 
 function DataList() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   // Päivitä windowWidth, kun ikkunan koko muuttuu
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Taulukon otsikkojen vaihto ruudun koon mukaan
   const getHeaderText = (text) => {
@@ -50,34 +50,45 @@ function DataList() {
         case 'Päivämäärä': return 'Pvm'
         case 'Ennuste': return 'Enn'
         case 'Toteutunut': return 'Tot'
-        default: return text;
+        default: return text
       }
     } else {
       switch (text) {
         case 'Pvm': return 'Päivämäärä'
         case 'Enn': return 'Ennuste'
         case 'Tot': return 'Toteutunut'
-        default: return text;
+        default: return text
       }
     }
-  };
+  }
 
   const Pvm = getHeaderText('Päivämäärä')
   const Enn = getHeaderText('Ennuste')
   const Tot = getHeaderText('Toteutunut')
 
+  // Päivämäärän muotoilu ruudun koon mukaan
+  const getDateText = (date) => {
+    if (windowWidth < 800) {
+      const options = { day: '2-digit', month: '2-digit' }
+      return new Intl.DateTimeFormat('fi-FI', options).format(new Date(date))
+    }
+    else {
+      return new Date(date).toLocaleDateString()
+    }
+  }
+
   useEffect(() => {
     // Hae data API:sta
     axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
       .then(response => {
-        setData(response.data);
-        setLoading(false);
+        setData(response.data)
+        setLoading(false)
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      });
-  }, []);
+        console.error('Error fetching data:', error)
+        setLoading(false)
+      })
+  }, [])
 
   const sortedData = useMemo(() => {
     return [...data].sort(
@@ -119,16 +130,23 @@ function DataList() {
               </thead>
               <tbody>
                 {sortedData.map(item => {
+                  // Muuttujien alustus
                   const tempPast3 = getValueFromPastDate(item.pvm, sortedData, 'temp', 3)
-                  const tempDiff3 = tempPast3 !== '-' ? item.lampotila_nyt - tempPast3 : '-';
+                  const tempDiff3 = tempPast3 !== '-' ? item.lampotila_nyt - tempPast3 : '-'
                   const rainPast3 = getValueFromPastDate(item.pvm, sortedData, 'rain', 3)
-                  const rainDiff3 = rainPast3 !== '-' ? item.sade_nyt - rainPast3 : '-';
-                  const cloudPast3 = getValueFromPastDate(item.pvm, sortedData, 'cloud', 3)
-                  const cloudDiff3 = cloudPast3 !== '-' ? item.pilvisyys_nyt - cloudPast3 : '-';
+                  const rainDiff3 = rainPast3 !== '-' ? item.sade_nyt - rainPast3 : '-'
+                  let cloudPast3
+                  if (!isNaN(getValueFromPastDate(item.pvm, sortedData, 'cloud', 3))) {
+                    cloudPast3 = (Number(getValueFromPastDate(item.pvm, sortedData, 'cloud', 3))).toFixed(0)
+                  } 
+                  else {
+                    cloudPast3 = '-'
+                  }
+                  const cloudDiff3 = cloudPast3 !== '-' ? ((Number(item.pilvisyys_nyt)).toFixed(0)) - cloudPast3 : '-'
 
                   return (
                     <tr key={item.pvm}>
-                      <td>{new Date(item.pvm).toLocaleDateString()}</td>
+                      <td>{getDateText(item.pvm)}</td>
 
                       <td className="group3">{tempPast3 !== '-' ? tempPast3 : '-'}</td>
                       <td className="group3">{item.lampotila_nyt !== null ? item.lampotila_nyt : '-'}</td>
@@ -139,8 +157,8 @@ function DataList() {
                       <td className="group3">{rainDiff3 !== '-' ? rainDiff3.toFixed(2) : '-'}</td>
 
                       <td className="group3">{cloudPast3 !== '-' ? cloudPast3 : '-'}</td>
-                      <td className="group3">{item.pilvisyys_nyt !== null ? item.pilvisyys_nyt : '-'}</td>
-                      <td className="group3">{cloudDiff3 !== '-' ? cloudDiff3.toFixed(2) : '-'}</td>
+                      <td className="group3">{item.pilvisyys_nyt !== null ? (Number(item.pilvisyys_nyt)).toFixed(0) : '-'}</td>
+                      <td className="group3">{cloudDiff3}</td>
                     </tr>
                   );
                 })}
@@ -173,12 +191,19 @@ function DataList() {
               </thead>
               <tbody>
                 {sortedData.map(item => {
+                  // Muuttujien alustus
                   const tempPast10 = getValueFromPastDate(item.pvm, sortedData, 'temp', 10)
-                  const tempDiff10 = tempPast10 !== '-' ? item.lampotila_nyt - tempPast10 : '-';
+                  const tempDiff10 = tempPast10 !== '-' ? item.lampotila_nyt - tempPast10 : '-'
                   const rainPast10 = getValueFromPastDate(item.pvm, sortedData, 'rain', 10)
-                  const rainDiff10 = rainPast10 !== '-' ? item.sade_nyt - rainPast10 : '-';
-                  const cloudPast10 = getValueFromPastDate(item.pvm, sortedData, 'cloud', 10)
-                  const cloudDiff10 = cloudPast10 !== '-' ? item.pilvisyys_nyt - cloudPast10 : '-';
+                  const rainDiff10 = rainPast10 !== '-' ? item.sade_nyt - rainPast10 : '-'
+                  let cloudPast10
+                  if (!isNaN(getValueFromPastDate(item.pvm, sortedData, 'cloud', 10))) {
+                    cloudPast10 = (Number(getValueFromPastDate(item.pvm, sortedData, 'cloud', 10))).toFixed(0)
+                  } 
+                  else {
+                    cloudPast10 = '-'
+                  }
+                  const cloudDiff10 = cloudPast10 !== '-' ? ((Number(item.pilvisyys_nyt)).toFixed(0)) - cloudPast10 : '-'
 
                   return (
                     <tr key={item.pvm}>
@@ -193,10 +218,10 @@ function DataList() {
                       <td className="group10">{rainDiff10 !== '-' ? rainDiff10.toFixed(2) : '-'}</td>
 
                       <td className="group10">{cloudPast10 !== '-' ? cloudPast10 : '-'}</td>
-                      <td className="group10">{item.pilvisyys_nyt !== null ? item.pilvisyys_nyt : '-'}</td>
-                      <td className="group10">{cloudDiff10 !== '-' ? cloudDiff10.toFixed(2) : '-'}</td>
+                      <td className="group10">{item.pilvisyys_nyt !== null ? (Number(item.pilvisyys_nyt)).toFixed(0) : '-'}</td>
+                      <td className="group10">{cloudDiff10}</td>
                     </tr>
-                  );
+                  )
                 })}
               </tbody>
             </table>
@@ -204,7 +229,7 @@ function DataList() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default DataList;
+export default DataList
