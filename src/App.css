@@ -141,7 +141,7 @@ padding: 0 2rem;
     font-size: smaller;
   }
   .forecast-tables th {
-    font-size: medium;
+    font-size: small;
   }
   .DataList h2 {
     font-size: large;
@@ -161,7 +161,7 @@ padding: 0 2rem;
     font-size: x-small;
   }
   .forecast-tables th {
-    font-size: smaller;
+    font-size: x-small;
   }
   .DataList h2 {
     font-size: medium;
