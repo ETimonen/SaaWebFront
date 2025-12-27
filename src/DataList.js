@@ -207,7 +207,7 @@ function DataList() {
 
                   return (
                     <tr key={item.pvm}>
-                      <td>{new Date(item.pvm).toLocaleDateString()}</td>
+                      <td>{getDateText(item.pvm)}</td>
 
                       <td className="group10">{tempPast10 !== '-' ? tempPast10 : '-'}</td>
                       <td className="group10">{item.lampotila_nyt !== null ? item.lampotila_nyt : '-'}</td>
