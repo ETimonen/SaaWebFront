@@ -1,0 +1,44 @@
+.site-footer {
+  background: linear-gradient(to bottom, #ffffff, #3f3f3f);
+  color: #313131;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #313131;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+}
+
+p {
+  font-size: medium;
+  font-weight: bold;
+}
+
+/* Skaalaus */
+@media (max-width: 600px) {
+  .footer-links {
+    flex-direction: column;
+  }
+}

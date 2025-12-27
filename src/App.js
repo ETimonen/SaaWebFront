@@ -1,19 +1,23 @@
 import './App.css';
 import DataList from './DataList';
+import Footer from './Footer';
 import axios from 'axios';
 
 function App() {
   return (
     <div className="App">
-      <div className="DataList">
+      <br />
       <h1>Espoo</h1>
-      <DataList /> {}
+      <div className="DataList">
+        <DataList /> {}
       </div>
+      <br />
+      <Footer /> {}
     </div>
   );
 }
 
-
+// Debuggausta varten //
 axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
   .then(response => {
     console.log(response.data);

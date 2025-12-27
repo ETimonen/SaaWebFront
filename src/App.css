@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
 }
 
 .App-logo {
@@ -41,11 +49,15 @@
   text-align: center;
 }
 
-/* Yleinen taulukon muotoilu */
+.DataList {
+  flex: 1;
+}
+
+/* Taulukot */
 table {
-  width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  border: solid;
 }
 
 th, td {
@@ -58,7 +70,6 @@ th {
   background-color: #f2f2f2;
 }
 
-/* Sticky otsikot */
 thead th {
   position: sticky;
   top: 0;
@@ -70,27 +81,60 @@ tbody tr:nth-child(even) {
   background-color: #ececec;
 }
 
-/* 3pv ennusteet: vaaleansininen */
-th.group3, td.group3 {
+/* 3pv ennusteet */
+td.group3 {
   background-color: #e0f7fa7a;
 }
 
-/* 10pv ennusteet: vaaleanoranssi */
-th.group10, td.group10 {
+tr:hover td.group3 {
+  background-color: #e0f7fa;
+}
+
+/* 10pv ennusteet */
+td.group10 {
   background-color: #ffe0b27c;
 }
 
-/* Yläotsikoiden korostus */
-th[colspan].group3 {
+tr:hover td.group10 {
+  background-color: #ffe0b2;
+}
+
+/* Yläotsikot */
+th.group3 {
   background-color: #a3d8ff;
   font-weight: bold;
 }
 
-th[colspan].group10 {
+th.group10 {
   background-color: #ffb74d;
   font-weight: bold;
 }
 
+/* Flex ja skaalaus */
+.main-content {
+  flex: 1;
+}
+
+.forecast-tables {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin: auto;
+padding: 0 2rem;
+}
+
+.forecast-tables table {
+  flex: 1;
+  min-width: 300px;
+}
+
+@media (max-width: 1200px) {
+  .forecast-tables {
+    flex-direction: column;
+  }
+}
+
+/* Lataus animaatio */
 .lataus-text {
   font-size: 20px;
   font-weight: bold;
