@@ -1,7 +1,7 @@
-import './App.css';
-import DataList from './DataList';
-import Footer from './Footer';
-import axios from 'axios';
+import './App.css'
+import DataList from './DataList'
+import Footer from './Footer'
+import axios from 'axios'
 
 function App() {
   return (
@@ -15,23 +15,23 @@ function App() {
       <br />
       <Footer /> {}
     </div>
-  );
+  )
 }
 
-// Debuggausta varten //
+// Debuggausta varten
 axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
   .then(response => {
-    console.log(response.data);
+    console.log(response.data)
   })
   .catch(error => {
-    console.error('Error:', error);
+    console.error('Error:', error)
     if (error.response) {
-      console.log(error.response.data);
+      console.log(error.response.data)
     } else if (error.request) {
-      console.log('Error:', error.request);
+      console.log('Error:', error.request)
     } else {
-      console.log('Error:', error.message);
+      console.log('Error:', error.message)
     }
-  });
+  })
 
 export default App;

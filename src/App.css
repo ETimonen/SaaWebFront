@@ -128,20 +128,20 @@ padding: 0 2rem;
   min-width: 150px;
 }
 
-/* Alle 1200px leveys */
-@media (max-width: 1200px) {
+/* Alle 1630px leveys */
+@media (max-width: 1630px) {
   .forecast-tables {
     flex-direction: column;
     gap: 0rem;
-    justify-content: left;
+    justify-content: center;
     margin: 2px;
     padding: 0 0rem;
   }
   .forecast-tables td {
-    font-size: smaller;
+    font-size: small;
   }
   .forecast-tables th {
-    font-size: small;
+    font-size: medium;
   }
   .DataList h2 {
     font-size: large;
