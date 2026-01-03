@@ -87,7 +87,7 @@ td.group3 {
 }
 
 tr:hover td.group3 {
-  background-color: #e0f7fa;
+  background-color: #cce7fa;
 }
 
 /* 10pv ennusteet */
@@ -128,8 +128,8 @@ padding: 0 2rem;
   min-width: 150px;
 }
 
-/* Alle 1630px leveys */
-@media (max-width: 1630px) {
+/* Alle 1670px leveys */
+@media (max-width: 1670px) {
   .forecast-tables {
     flex-direction: column;
     gap: 0rem;

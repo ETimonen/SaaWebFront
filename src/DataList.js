@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
+import { MyChartTemp, MyChartRain, MyChartCloud, MixedChart } from './Charts'
 
 // Funktio, joka hakee ennusteen arvon menneeltä päivämäärältä
 const getValueFromPastDate = (currentDate, data, dataType, daysToReduce) => {
@@ -94,7 +95,67 @@ function DataList() {
     return [...data].sort(
       (a, b) => new Date(a.pvm) - new Date(b.pvm)
     );
-  }, [data]);
+  }, [data])
+
+  // Datan muotoilu kaavioita varten
+  const chartData = useMemo(() => {
+    return sortedData.map(item => {
+      const pv3RawTemp = getValueFromPastDate(item.pvm, sortedData, 'temp', 3)
+      const pv10RawTemp = getValueFromPastDate(item.pvm, sortedData, 'temp', 10)
+      const pv3RawRain = getValueFromPastDate(item.pvm, sortedData, 'rain', 3)
+      const pv10RawRain = getValueFromPastDate(item.pvm, sortedData, 'rain', 10)
+      const pv3RawCloud = getValueFromPastDate(item.pvm, sortedData, 'cloud', 3)
+      const pv10RawCloud = getValueFromPastDate(item.pvm, sortedData, 'cloud', 10)
+      return {
+        pvm: new Date(item.pvm).toLocaleDateString('fi-FI'),
+
+        // Lämpötila
+        pv3_temp:
+          pv3RawTemp === '-'
+            ? null
+            : Number(
+                (item.lampotila_nyt - pv3RawTemp).toFixed(2)
+              ),
+
+        pv10_temp:
+          pv10RawTemp === '-'
+            ? null
+            : Number(
+                (item.lampotila_nyt - pv10RawTemp).toFixed(2)
+              ),
+
+        // Sade
+        pv3_rain:
+          pv3RawRain === '-'
+            ? null
+            : Number(
+                (item.sade_nyt - pv3RawRain).toFixed(2)
+              ),
+
+        pv10_rain:
+          pv10RawRain === '-'
+            ? null
+            : Number(
+                (item.sade_nyt - pv10RawRain).toFixed(2)
+              ),
+
+        // Pilvisyys
+        pv3_cloud:
+          pv3RawCloud === '-'
+            ? null
+            : Number(
+                (item.pilvisyys_nyt - pv3RawCloud).toFixed(2)
+              ),
+
+        pv10_cloud:
+          pv10RawCloud === '-'
+            ? null
+            : Number(
+                (item.pilvisyys_nyt - pv10RawCloud).toFixed(2)
+              ),
+      }
+    })
+  }, [sortedData])
 
   return (
     <div className="data-list-container">
@@ -225,6 +286,17 @@ function DataList() {
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="Charts">
+            <h3>Ennusteen ja toteutuneen erot: </h3>
+            <h4>Lämpötila</h4>
+            <MyChartTemp chartData={chartData}/>
+            <h4>Sademäärä</h4>
+            <MyChartRain chartData={chartData}/>
+            <h4>Pilvisyys</h4>
+            <MyChartCloud chartData={chartData}/>
+            <h4>Yhdistetty kaavio</h4>
+            <MixedChart chartData={chartData}/>
           </div>
         </div>
       )}
