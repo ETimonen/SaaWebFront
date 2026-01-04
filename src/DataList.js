@@ -80,7 +80,7 @@ function DataList() {
 
   useEffect(() => {
     // Hae data API:sta
-    axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
+    axios.get(process.env.API_URL)
       .then(response => {
         setData(response.data)
         setLoading(false)
