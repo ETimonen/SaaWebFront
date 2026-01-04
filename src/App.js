@@ -19,7 +19,7 @@ function App() {
 }
 
 // Debuggausta varten
-axios.get('https://saa-api.onrender.com/saaapi/ennusteet/')
+axios.get(process.env.API_URL)
   .then(response => {
     console.log(response.data)
   })
