@@ -80,13 +80,13 @@ function DataList() {
 
   useEffect(() => {
     // Hae data API:sta
-    axios.get(process.env.API_URL)
+    axios.get(process.env.REACT_APP_API_URL)
       .then(response => {
         setData(response.data)
         setLoading(false)
       })
       .catch(error => {
-        console.error('Error fetching data:', error)
+        console.error('Error:', error)
         setLoading(false)
       })
   }, [])
