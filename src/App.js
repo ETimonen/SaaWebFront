@@ -19,7 +19,7 @@ function App() {
 }
 
 // Debuggausta varten
-axios.get(process.env.REACT_APP_API_URL)
+axios.get(`'${process.env.REACT_APP_API_URL}'`)
   .then(response => {
     console.log(response.data)
   })
