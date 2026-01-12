@@ -31,11 +31,11 @@ Sovellus hakee ajantasaiset ja ennustetut säätiedot rajapinnan kautta ja:
 
 ### Asennusohjeet
 
-bash:
-
+```bash
 git clone https://github.com/ETimonen/SaaWebFront
 cd SaaWebFront
 npm install
+```
 
 ### Käyttöönotto
 
@@ -52,5 +52,8 @@ Kun sovellus on esiasennettu ja API on käytettävissä:
     pilvisyys_nyt -> tämänhetkinen pilvisyysprosentti
     pilvisyys_3pv -> kolmen päivän ennuste pilvisyysprosentista
     pilvisyys_10pv -> kymmenen päivän ennuste pilvisyysprosentista
-- Bash -komento "npm start" serverin käynnistämiseksi (varmista että api on käytettävissä)
+- Serverin käynnistäminen (varmista että api on käytettävissä):
+``` bash
+npm start
+```
 
